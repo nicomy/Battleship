@@ -3,6 +3,11 @@
 #include <stdlib.h> **/
 #include "affichage.h"
 
+/**role de la fct joue : si 'B' en (i,j) -> raté 
+sinon  on a toucher en (i,j)
+-> appel de un_navire_coulé pour savoir si on a coulé
+
+**/
 
 
 typedef char** grille ; 
