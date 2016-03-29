@@ -16,6 +16,15 @@ int main(){
 	afficher_jeu(g1,N);
 	affiche_etat_coules(g1,N);
 
+
+	/**faire une fonctino popur liberer la mémoire tq 
+	for (i = 0; i < n; i++)
+        free(m[i]);
+
+    désallocation mémoire du tableau de sous-tableaux :   
+    free(m);*/
+
+
 	return 0;
 
 }
