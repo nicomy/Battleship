@@ -1,17 +1,18 @@
 
-typedef struct $navire navire
+typedef struct $navire liste_navire
 
-struct $maillon
+typedef struct $list
 {
-	pMaillon nextm;
-	pNavire liste_navire;
-}maillon, *pMaillon;
+	pNavire first;
+	pNavire last;
+}liste_navire, *pList_navire;
 
-struct $navire
+typedef struct $maillon
 {
 	int i_deb;
 	int j_deb;
 	int i_fin;
 	int j_fin;
-	int coulé;
-}*pNavire, navire;
+	int coule;
+	pNavire nextMaillon;
+}*pMaillon, maillon;
