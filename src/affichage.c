@@ -55,7 +55,6 @@ void afficher_jeu(grille g , int N ) {
 
 void affiche_etat_coules(grille g, int N ){
 	int i, j ; 
-
 	printf("\t");
 
 	for(i=0; i< N ; i ++ ){
@@ -74,16 +73,47 @@ void affiche_etat_coules(grille g, int N ){
 		printf("\n");
 	}
 	printf("\n");
+
 }
 
 
+int mettable(grille g, int n, char debut[], char fin[]){
+	int i, j ; 
+	int res = 1 ;
+
+	if (debut[0]<0 || debut[1]<0 || fin[0]>(n-1) || fin[1] > n-1)
+	{
+		res = 0 ;
+	}
+	else{
+		for (i= debut[0]; i<= fin[0]; i++ ){
+			for(j= debut[1]; j<=fin[1]; j++){
+				
+				if( (j+1 <= (n-1)) && g[j+1][i] == 'N' ){
+					res = 0 ;
+				}
+				else if ((j-1 >= 0) && g[j-1][i] == 'N' ){
+					res = 0 ; 
+				}
+				else if ( (i+1 <= (n-1)) && g[j][i+1] == 'N'  ){
+					res = 0 ; 
+				}
+				else if( (i-1 >= 0) && g[j][i-1] == 'N'  ){
+					res = 0 ;
+					//break ; ? 
+				}
+   			}
+		}
+	}
+	return res; 
+}
 
 void remplir_gille (grille g, int n ){
 	char buf[10] = "" ;
 	char debut[2] = "" ;
 	char fin[2] = "" ;
 	char tmp ; 
-	char i , j ; 
+	int i , j ; 
 	FILE* fichier = NULL;
 
     fichier = fopen("remplissage.txt", "r");
@@ -108,14 +138,14 @@ void remplir_gille (grille g, int n ){
 	   			fin[1] = tmp ;
 	   		}
 
-	   		for (i= debut[0]; i<= fin[0];i++ ){
-	   			for(j= debut[1];j<=fin[1];j++){
-	   				g[j][i] = 'N' ;
-	   			}
-	   		}
+	   		if(mettable(g,n,debut,fin)){
+		   		for (i= debut[0]; i<= fin[0];i++ ){
+		   			for(j= debut[1];j<=fin[1];j++){
+		   				g[j][i] = 'N' ;
+		   			}
+		   		}
+		   	}
 	   	}
-   		
-        
-        fclose(fichier);
+   		fclose(fichier);
     }
 }

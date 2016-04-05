@@ -4,7 +4,7 @@
 #include "affichage.h"
 
 int main(){
-	int N = 10 ;
+	int N = 11 ;
 	grille g1, g2 ;
 	//g1 = init_grille(N, 'B');
 	g2= init_grille(N,'B') ;
