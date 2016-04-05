@@ -73,5 +73,6 @@ void affiche_etat_coules(grille g, int N ){
 
 		printf("\n");
 	}
-	printf("\n");}
+	printf("\n");
+}
 
