@@ -1,16 +1,19 @@
+#include "codageNavires.h"
 
-void addNavire(pList_navire* list, pMaillon* n){
-	if (list == NULL){
+void addNavire(pListe_navire list, pMaillon* n){
+	if (list->first == NULL){
+		printf("prout1\n");
 		list->first = n;
 		list->last = n;
 	}
 	else{
-		(*list)->last->nextMailloin = n;
-		(*list)->last = n;
+		printf("prout2\n");
+		(list)->last->nextMaillon = n;
+		(list)->last = n;
 	}
 }
 
-pNavire creatNavire(int i_first, int j_first, int i_end, int j_end){
+pMaillon creatNavire(int i_first, int j_first, int i_end, int j_end){
 	pMaillon newNavire = malloc(sizeof(maillon));
 	if(newNavire == NULL){
 		printf("erreur d'alocation\n");
@@ -22,31 +25,35 @@ pNavire creatNavire(int i_first, int j_first, int i_end, int j_end){
 	newNavire->i_fin = i_end;
 	newNavire->j_fin = j_end;
 	newNavire->coule = 0;
-	newNavire->newNavire = NULL;
+	newNavire->nextMaillon = NULL;
 
 	return newNavire;
 }
 
-pList creatList(){
-	pList_navire l = malloc(sizeof(list_navire));
+pListe_navire creatList(){
+	pListe_navire l = malloc(sizeof(liste_navire));
+	if(l == NULL){
+		printf("erreur d'alocation\n");
+		exit(0);
+	}
 	l->first = NULL;
-	l->last = NULL
+	l->last = NULL;
 	return l;
 }
 
-pMaillon find_navire(grille* g, int n, int i, int j){
-	int i_first, j_first, i_end, j_end;
+pMaillon find_navire(grille g, int n, int i, int j){
+	int i_first, j_first;
 	i_first = i;
 	j_first = j;
 
-	if(g[i+1][j] == N){
-		while(g[i][j] == N){
+	if(i+1 < n && g[i+1][j] == 'N'){
+		while(g[i][j] == 'N'){
 			g[i][j] = 'o';
 			i++;
 		}
 	}
-	else{
-		while(g[i][j] == N){
+	else if(j+1 < n){
+		while(g[i][j] == 'N'){
 			g[i][j] = 'o';
 			j++;
 		}
@@ -56,17 +63,32 @@ pMaillon find_navire(grille* g, int n, int i, int j){
 	
 }
 
-list_navire cree_liste_navires(grille g, int n){
+void printGrille(grille g, int taille){
+	int i, j;
+	for ( i = 0; i < taille; ++i)
+	{
+		for (j = 0; j < taille; ++j)
+		{
+			printf("%c ", g[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+liste_navire cree_liste_navires(grille g, int n){
 
 	int i, j;
-	pList_navire ln = creatList;
+	pListe_navire ln = creatList();
 	pMaillon m;
 
 	for(i=0; i<n; i++){
-		for (int j = 0; j < n; j++){
-			if(g[i][j] == N){
-				m = find_navire(&g, n);
+		for (j = 0; j < n; j++){
+			if(g[i][j] == 'N'){
+				m = find_navire(g, n, i, j);
+				printf("hey2\n");
+				printGrille(g, n);
 				addNavire(ln, m);
+				printf("hey3\n");
 			}
 
 		}
