@@ -76,3 +76,46 @@ void affiche_etat_coules(grille g, int N ){
 	printf("\n");
 }
 
+
+
+void remplir_gille (grille g, int n ){
+	char buf[10] = "" ;
+	char debut[2] = "" ;
+	char fin[2] = "" ;
+	char tmp ; 
+	char i , j ; 
+	FILE* fichier = NULL;
+
+    fichier = fopen("remplissage.txt", "r");
+    
+   	if (fichier != NULL){
+   		
+   		while(fgets(buf,10, fichier) !=  NULL){
+	   		debut[0] = buf[0] - 'A' ;
+	   		debut[1] = buf[1] - '0' ; 
+	   		fin[0] = buf[3] - 'A' ;
+	   		fin[1] = buf[4] - '0' ; 
+
+	   		if(debut[0]>fin[0]){
+	   			tmp = debut[0];
+	   			debut[0] = fin[0];
+	   			fin[0] = tmp ; 
+	   		}
+
+	   		if(debut[1]>fin[1]){
+	   			tmp = debut[1];
+	   			debut[1] = fin[1];
+	   			fin[1] = tmp ;
+	   		}
+
+	   		for (i= debut[0]; i<= fin[0];i++ ){
+	   			for(j= debut[1];j<=fin[1];j++){
+	   				g[j][i] = 'N' ;
+	   			}
+	   		}
+	   	}
+   		
+        
+        fclose(fichier);
+    }
+}
