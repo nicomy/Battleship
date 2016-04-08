@@ -1,6 +1,6 @@
-#include <jeu.h>
-#include <affichage.h>
-#include <codageNavires.h>
+#include "jeu.h"
+//#include <affichage.h>
+//#include <codageNavires.h>
 
 
 pbateau addbateau(pbateau b,char* nom_bat,int nbr,int nbcase){
@@ -30,23 +30,47 @@ pbateau creatList(){
 }
 
 pbateau initbat (){
+	pbateau l ; 
 	l = creatList() ;
 	l = addbateau(l,"torpileurs",4,2 );
-	l= addbateau(l,"contre-torpilleurs",3,3);
-	l= addbateau(l,"croiseurs",2,4);
-	l=addbateau(l,"porte-avion",1,6);
+	l = addbateau(l,"contre-torpilleurs",3,3);
+	l = addbateau(l,"croiseurs",2,4);
+	l = addbateau(l,"porte-avion",1,6);
 	return l ; 
 }
 
+int lbvide(pbateau l ){
+	return (l == NULL) ;
+}
 
+//renvoit 0 s'il n'y plus de bateau à enlever, 1 sinon. 
+pbateau enlever(pbateau l){
+	pbateau tmp = l ;
+	int nbr ;
+
+	while(tmp != NULL && (tmp->nombre == 0)){
+		tmp = tmp->nextbateau ; 
+		printf("%d\n", tmp->nombre);
+	}
+
+	if(tmp != NULL){
+		nbr = tmp->nombre ;
+		tmp -> nombre = --nbr ; 
+	}
+	if(nbr== 0 ) {
+		tmp= tmp->nextbateau ;
+	}
+
+	return tmp ;
+}
 
 // j = ligne et i = colonne. 
 // /!\ gc[j][i] n'est pas encore joué !
-void joue(grille g, grille gc, int n, liste_navires l, int i , int j ){
+// void joue(grille g, grille gc, int n, listebateau l, int i , int j ){
 
-	if (g[j][i] == 'B')
-	{
-		gc[j][i] == 'X' ;
-		printf("Rate\n");
-	}
-}
+// 	if (g[j][i] == 'B')
+// 	{
+// 		gc[j][i] == 'X' ;
+// 		printf("Rate\n");
+// 	}
+// }

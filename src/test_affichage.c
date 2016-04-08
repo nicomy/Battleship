@@ -17,8 +17,10 @@ int main(){
 	afficher_jeu(g1,N);
 	affiche_etat_coules(g1,N);*/
 
-	remplir_gille (g2, N );
-	afficher_jeu(g2,N);
+	//remplir_gille (g2, N );
+	//afficher_jeu(g2,N);
+
+	usr_remplir_grille(g2, N );
 
 
 	/**faire une fonctino popur liberer la mémoire tq 

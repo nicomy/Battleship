@@ -84,7 +84,10 @@ int mettable(grille g, int n, char debut[], char fin[]){
 	if (debut[0]<0 || debut[1]<0 || fin[0]>(n-1) || fin[1] > n-1)
 	{
 		res = 0 ;
+		printf("\n\nVos coordonnées sortent du tableau ou son invalide pensez à bien mettre un caractère autre qu'espace pour séparez le début et la fin du bateau\n\n");
 	}
+
+
 	else{
 		for (i= debut[0]; i<= fin[0]; i++ ){
 			for(j= debut[1]; j<=fin[1]; j++){
@@ -104,7 +107,11 @@ int mettable(grille g, int n, char debut[], char fin[]){
 				}
    			}
 		}
+		if(!res){
+			printf("\n\nVous ne pouvez pas palcer votre bateau directement à coté d'un autre.\n");
+		}
 	}
+
 	return res; 
 }
 
@@ -113,7 +120,7 @@ void remplir_gille (grille g, int n ){
 	char debut[2] = "" ;
 	char fin[2] = "" ;
 	char tmp ; 
-	int i , j ; 
+	int i , j  ; 
 	FILE* fichier = NULL;
 
     fichier = fopen("remplissage.txt", "r");
@@ -137,6 +144,8 @@ void remplir_gille (grille g, int n ){
 	   			debut[1] = fin[1];
 	   			fin[1] = tmp ;
 	   		}
+	   		
+
 
 	   		if(mettable(g,n,debut,fin)){
 		   		for (i= debut[0]; i<= fin[0];i++ ){
@@ -148,4 +157,77 @@ void remplir_gille (grille g, int n ){
 	   	}
    		fclose(fichier);
     }
+}
+
+//revoit la taille du bateau entré par l'utilisateur.
+int taille( char debut[], char fin[]){
+	int i,j, compteur = 0; 
+
+	for (i = debut[0]; i <= fin[0]; ++i)
+	{
+		for (j = debut[1]; j <= fin[1]; ++j)
+		{
+			compteur++;
+		}
+	}
+
+	return (compteur) ;
+}
+
+void usr_remplir_grille(grille g, int n ){
+	char buf[10] = "" ;
+	char debut[2] = "" ;
+	char fin[2] = "" ;
+	char tmp ; 
+	int i , j ; 
+	pbateau l = initbat();	
+
+	printf("boujour\n");
+
+	while(!lbvide(l)){
+		printf("voici la grille : \n");
+		afficher_jeu(g, n);
+		printf("Veuillez placer le bateau %s, qui fait %d cases \n",l->nom, l->nb_cases );
+		printf("Rentrez les coordonées de debut et de fin du bateau (ex : \"A0-J5\")\n");
+		scanf("%s",buf);
+
+		//printf("%s\n", buf );
+		debut[0] = buf[0] - 'A' ;
+   		debut[1] = buf[1] - '0' ; 
+   		fin[0] = buf[3] - 'A' ;
+   		fin[1] = buf[4] - '0' ; 
+
+   		//remet dans l'ordre si besoin le debut et la fin du bateau.
+   		if(debut[0]>fin[0]){
+   			tmp = debut[0];
+   			debut[0] = fin[0];
+   			fin[0] = tmp ; 
+   		}
+
+   		if(debut[1]>fin[1]){
+   			tmp = debut[1];
+   			debut[1] = fin[1];
+   			fin[1] = tmp ;
+   		}
+
+   		//printf("debut[0] = %c, fin[1] =%c \n",debut[0],fin[1]  );
+
+   		tmp = taille(debut,fin) ;
+
+   		if( tmp != l->nb_cases){
+   			printf("Vous essayez de mettre un bateau de %d cases alors que le %s en demande %d\n",tmp,l->nom, l->nb_cases);
+   		}
+   		else if (mettable(g,n,debut,fin))
+   		{
+   			for (i= debut[0]; i<= fin[0];i++ ){
+	   			for(j= debut[1];j<=fin[1];j++){
+	   				g[j][i] = 'N' ;
+	   			}
+		   	}
+		   	l=enlever(l);
+
+   		}
+	}
+
+
 }
