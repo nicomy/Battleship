@@ -187,3 +187,23 @@ int jeu_fini(liste_navire l){
 	return res;
 }
 
+int navire_touche(grille g, int i, int j){
+	return g[i][j] == 'N';
+}
+
+void joue(grille g, grille gc, int n, liste_navire l, int i, int j){
+
+	if(navire_coule(l->first, i, j, gc)){
+		printf("coule\n");
+	}
+	else if(navire_touche(g, i, j)){
+		gc[i][j] = 'T';
+		printf("touche\n");
+	}
+	else{
+		gc[i][j] = 'X';
+		printf("rate\n");
+
+	}
+}
+
