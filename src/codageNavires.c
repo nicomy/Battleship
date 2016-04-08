@@ -1,13 +1,11 @@
 #include "codageNavires.h"
 
-void addNavire(pListe_navire list, pMaillon* n){
+void addNavire(pListe_navire list, pMaillon n){
 	if (list->first == NULL){
-		printf("prout1\n");
 		list->first = n;
 		list->last = n;
 	}
 	else{
-		printf("prout2\n");
 		(list)->last->nextMaillon = n;
 		(list)->last = n;
 	}
@@ -75,22 +73,117 @@ void printGrille(grille g, int taille){
 	}
 }
 
+char** cree_copie(grille g, int n){
+	int i, j;
+	grille copie = malloc(sizeof(char*)*n);
+	if(copie == NULL){exit(0);}
+	for (i = 0; i < n; ++i){
+		copie[i] = malloc(sizeof(char)*n);
+		if(copie[i] == NULL){exit(0);}
+	}
+
+	for(i=0; i<n; i++){
+		for(j=0; j<n; j++){
+			copie[i][j] = g[i][j];
+		}
+	}
+
+	return copie;
+
+}
+
 liste_navire cree_liste_navires(grille g, int n){
 
 	int i, j;
 	pListe_navire ln = creatList();
 	pMaillon m;
-
+	char** copie = cree_copie(g, n);
 	for(i=0; i<n; i++){
 		for (j = 0; j < n; j++){
-			if(g[i][j] == 'N'){
-				m = find_navire(g, n, i, j);
-				printf("hey2\n");
-				printGrille(g, n);
+			if(copie[i][j] == 'N'){
+				m = find_navire(copie, n, i, j);
+				//printGrille(g, n);
 				addNavire(ln, m);
-				printf("hey3\n");
 			}
 
 		}
 	}
+	free(copie);
+	return *ln;
 }
+
+
+int tailleNavire(pMaillon m){
+	int res;
+	if(m->i_deb == m->i_fin){
+		res = m->j_fin - m->j_deb;
+	}
+	else{
+		res = m->i_fin - m->i_deb;
+	}
+	return res;
+}
+
+int appartien(pMaillon current, int ic, int jc){
+	int appartien = 0;
+	int i, j;
+	for (i = i_deb; i <= current->i_fin; j++){
+		for(j=j_deb; j<=current->j_fin; j++){
+			if(ic==i && jc == j){
+				appartien=1;
+			}
+		}
+	}
+	return appartien;
+}
+
+void navireC(grille gc, pMaillon m){
+	int i, j;
+	for (i = i_deb; i <= current->i_fin; j++){
+		for(j=j_deb; j<=current->j_fin; j++){
+			gc[i][j] = 'C';
+		}
+	}
+}
+
+int navire_coule(maillon* m, int ic, int jc, grille gc){
+	int i, j, counte=0, coule=0;
+	pMaillon current = m;
+	
+	while(current != NULL && !appartien(current, ic, jc)){
+		current = current->nextMaillon;
+	}
+
+	if(current !=NULL){
+		for(i=m->i_deb; i<=m->i_fin; i++){
+			for (j=m->j_deb; j<=m->j_fin; j++){
+				if(gc[i][j] == 'T'){
+					counte++;
+				}
+			}
+		}
+		if(counte+1 >= tailleNavire(current)){
+			coule=1;
+
+			current->coule = 1;
+			navireC(gc, current);
+		}
+	}
+	return coule;
+}
+
+
+int jeu_fini(liste_navire l){
+	int res=1;
+
+	pMaillon current = l.first;
+	while(current != NULL){
+		if(current->coule == 0){
+			res = 0;
+		}
+		current = current->nextMaillon;
+	}
+
+	return res;
+}
+
