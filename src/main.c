@@ -7,8 +7,8 @@
 #include "codageNavires.h"
 
 
-int char_to_int(const char* t){
-	int res= 0 , i =0; 
+int char_to_int(const char* t, int debut){
+	int res= 0 , i = debut; 
 	while(t[i]!='\0'){
 		res = res*10 + t[i] -'0';
 		i++;
@@ -19,20 +19,20 @@ int char_to_int(const char* t){
 
 int main(int argc, char const *argv[])
 {
-	int N = char_to_int(argv[1]);//argv[1][0] - '0' ;
+	int N = char_to_int(argv[1],0);   //argv[1][0] - '0' ;
 	int compteur = 0,i ,j ;
 	char coup[10] ; 
 	grille gc = init_grille ( N , ' ' ) , g = init_grille(N, 'B') ;
 	liste_navire l ;
 
 	printf("Le joueur 1 doit placer les bateaux \n");
-	//usr_remplir_grille(g, N );
-	remplir_gille(g,N) ;
+	usr_remplir_grille(g, N );
+	//remplir_gille(g,N) ;
 	l = cree_liste_navires(g, N);
 
 	printf("au joueur 2 d'essayer de couler les navires.\n");
 	while(!jeu_fini(l)){
-		printf("Voici la grille\n");
+		printf("\nVoici la grille\n");
 		affiche_etat_coules(gc, N );
 		printf("veuillez entrer les coordonées du tir (ex: \"E5\")\n");
 		scanf("%s",coup);
@@ -42,7 +42,7 @@ int main(int argc, char const *argv[])
 		}
 		else{
 			j = coup[0] - 'A' ;
-			i = coup[1] -'0' ;
+			i = char_to_int(coup, 1);
 
 			if (i<0 || j<0 || i>(N-1) || j > N-1)
 			{
@@ -51,6 +51,7 @@ int main(int argc, char const *argv[])
 			else{
 
 				joue(g,gc,N,l,i,j); 
+				printf("\n");
 				compteur++ ;
 			}
 		}
