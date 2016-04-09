@@ -1,10 +1,8 @@
 #include "jeu.h"
-//#include <affichage.h>
-//#include <codageNavires.h>
 
-
+//fonction qui ajoute un bateau dans la liste.
 pbateau addbateau(pbateau b,char* nom_bat,int nbr,int nbcase){
-	pbateau nbateau = malloc(sizeof(listebateau));
+	pbateau nbateau = malloc(sizeof(listebateau)); 
 	
 	if(nbateau == NULL){
 		printf("erreur d'alocation\n");
@@ -16,9 +14,10 @@ pbateau addbateau(pbateau b,char* nom_bat,int nbr,int nbcase){
 	nbateau-> nb_cases = nbcase ;
 	nbateau->nextbateau = b; 
 
-	return nbateau;
+	return nbateau; 
 }
 
+//crée une liste_bateu vide
 pbateau creatList(){
 	pbateau l = malloc(sizeof(listebateau));
 	if(l == NULL){
@@ -29,6 +28,7 @@ pbateau creatList(){
 	return l ;
 }
 
+//permet de remplir la liste avec tous les bateaux , leurs nombres et leurs taille.
 pbateau initbat (){
 	pbateau l ; 
 	l = creatList() ;
@@ -39,6 +39,7 @@ pbateau initbat (){
 	return l ; 
 }
 
+//test si la liste est vide ou non 
 int lbvide(pbateau l ){
 	return (l == NULL) ;
 }
@@ -64,13 +65,13 @@ pbateau enlever(pbateau l){
 	return tmp ;
 }
 
-// j = ligne et i = colonne. 
-// /!\ gc[j][i] n'est pas encore joué !
-// void joue(grille g, grille gc, int n, listebateau l, int i , int j ){
+//fonction pour liberer la liste à la fin. 
+void free_l(pbateau l){
+	pbateau tmp  ;
 
-// 	if (g[j][i] == 'B')
-// 	{
-// 		gc[j][i] == 'X' ;
-// 		printf("Rate\n");
-// 	}
-// }
+	while(l != NULL){
+		tmp = l ;
+		l = l->nextbateau ;
+		free(tmp);
+	}
+}

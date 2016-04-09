@@ -16,6 +16,7 @@ typedef struct _bateau
 pbateau addbateau(pbateau b,char* nom_bat,int nbr,int nbcase);
 pbateau creatList();
 pbateau initbat ();
+void free_l(pbateau l);
 int lbvide(pbateau l );
 pbateau enlever(pbateau l) ;
 

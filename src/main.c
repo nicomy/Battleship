@@ -6,7 +6,7 @@
 #include "affichage.h"
 #include "codageNavires.h"
 
-
+//fonction qui permet de convertir un nombre qui est dans une cchaine de caractère en int lissible.
 int char_to_int(const char* t, int debut){
 	int res= 0 , i = debut; 
 	while(t[i]!='\0'){
@@ -23,8 +23,9 @@ int main(int argc, char const *argv[])
 	int N   ;
 	int compteur = 0,i ,j ;
 	char coup[10] ; 
-	grille gc , g  ;
-	
+	grille gc , g  ;/
+
+	// par defaut s'il n'y pas de deuxième argument on initie N à 10 
 	if(argc<2){
 		N = 10 ; 
 	}
@@ -68,6 +69,10 @@ int main(int argc, char const *argv[])
 
 	printf("vous avez fini le jeu en %d tirs \nLa disposition des bateaux est :\n", compteur );
 	afficher_jeu(g,N);
+
+	//libération des grilles.
+	free_grille(g,N);
+	free_grille(gc,N);
 
 	return 0;
 }
