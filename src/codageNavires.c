@@ -160,8 +160,8 @@ int navire_coule(maillon* m, int ic, int jc, grille gc){
 	}
 
 	if(current !=NULL){
-		for(i=m->i_deb; i<=m->i_fin; i++){
-			for (j=m->j_deb; j<=m->j_fin; j++){
+		for(i=current->i_deb; i<=current->i_fin; i++){
+			for (j=current->j_deb; j<=current->j_fin; j++){
 				if(gc[i][j] == 'T'){
 					counte++;
 				}

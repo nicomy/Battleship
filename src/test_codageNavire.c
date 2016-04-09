@@ -59,6 +59,10 @@ int main(int argc, char const *argv[])
 	printGrille(gc, TAILLE);
 	joue(g, gc, TAILLE, l, 0, 1);
 	printGrille(gc, TAILLE);
-
+	joue(g, gc, TAILLE, l, 5, 5);
+	joue(g, gc, TAILLE, l, 6, 5);
+	joue(g, gc, TAILLE, l, 4, 5);
+	joue(g, gc, TAILLE, l, 7, 5);
+	printGrille(gc, TAILLE);
 	return 0;
 }
