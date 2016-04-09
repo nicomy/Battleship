@@ -2,9 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "jeu.h"
+
 #include "affichage.h"
-#include "codageNarvires.h"
+#include "codageNavires.h"
 
 
 int main(int argc, char const *argv[])

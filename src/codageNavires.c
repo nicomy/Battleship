@@ -28,7 +28,7 @@ pMaillon creatNavire(int i_first, int j_first, int i_end, int j_end){
 	return newNavire;
 }
 
-pListe_navire creatList(){
+pListe_navire liste_vide(){
 	pListe_navire l = malloc(sizeof(liste_navire));
 	if(l == NULL){
 		printf("erreur d'alocation\n");
@@ -97,7 +97,7 @@ char** cree_copie(grille g, int n){
 liste_navire cree_liste_navires(grille g, int n){
 
 	int i, j;
-	pListe_navire ln = creatList();
+	pListe_navire ln = liste_vide();
 	pMaillon m;
 	char** copie = cree_copie(g, n);
 	for(i=0; i<n; i++){

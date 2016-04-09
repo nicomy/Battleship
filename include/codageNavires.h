@@ -25,7 +25,7 @@ void addNavire(pListe_navire list, pMaillon n);
 
 pMaillon creatNavire(int i_first, int j_first, int i_end, int j_end);
 
-pListe_navire creatList();
+pListe_navire liste_vide();
 
 pMaillon find_navire(grille g, int n, int i, int j);
 
