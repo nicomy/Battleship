@@ -236,12 +236,6 @@ void usr_remplir_grille(grille g, int n ){
 		printf("Rentrez les coordonées de debut et de fin du bateau (ex : \"J0-J5\")\n");
 		scanf("%s",buf);
 
-		//printf("%sf\n", buf );
-		
-		// debut[0] = buf[0] - 'A' ;
-  //  		debut[1] = buf[1] - '0' ; 
-  //  		fin[0] = buf[3] - 'A' ;
-  //  		fin[1] = buf[4] - '0' ; 
 		if (strlen(buf) < 5){
 			printf("il manque des données dans ce que vous avez rentrez (ex \"A0-A5\" ) p\n");
 		}
