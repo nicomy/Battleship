@@ -36,8 +36,8 @@ int main(int argc, char const *argv[])
 	g = init_grille(N, 'B') ;
 
 	printf("Le joueur 1 doit placer les bateaux \n");
-	usr_remplir_grille(g, N );
-	//remplir_gille(g,N) ;
+	//usr_remplir_grille(g, N );
+	remplir_gille(g,N) ;
 	l = cree_liste_navires(g, N);
 
 	printf("au joueur 2 d'essayer de couler les navires.\n");
