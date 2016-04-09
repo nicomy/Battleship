@@ -19,11 +19,20 @@ int char_to_int(const char* t, int debut){
 
 int main(int argc, char const *argv[])
 {
-	int N = char_to_int(argv[1],0);   //argv[1][0] - '0' ;
+	liste_navire l ;
+	int N   ;
 	int compteur = 0,i ,j ;
 	char coup[10] ; 
-	grille gc = init_grille ( N , ' ' ) , g = init_grille(N, 'B') ;
-	liste_navire l ;
+	grille gc , g  ;
+	
+	if(argc<2){
+		N = 10 ; 
+	}
+	else{
+		N = char_to_int(argv[1],0);
+	}
+	gc = init_grille ( N , ' ' ) ;
+	g = init_grille(N, 'B') ;
 
 	printf("Le joueur 1 doit placer les bateaux \n");
 	usr_remplir_grille(g, N );
