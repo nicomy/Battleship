@@ -49,12 +49,14 @@ pMaillon find_navire(grille g, int n, int i, int j){
 			g[i][j] = 'o';
 			i++;
 		}
+		i--;
 	}
 	else if(j+1 < n){
 		while(g[i][j] == 'N'){
 			g[i][j] = 'o';
 			j++;
 		}
+		j--;
 	}
 
 	return creatNavire(i_first, j_first, i, j);
@@ -114,33 +116,36 @@ liste_navire cree_liste_navires(grille g, int n){
 
 
 int tailleNavire(pMaillon m){
-	int res;
+	int res=0;
 	if(m->i_deb == m->i_fin){
-		res = m->j_fin - m->j_deb;
+		res = m->j_fin - m->j_deb+1;
 	}
 	else{
-		res = m->i_fin - m->i_deb;
+		res = m->i_fin - m->i_deb+1;
 	}
+
 	return res;
 }
 
 int appartien(pMaillon current, int ic, int jc){
 	int appartien = 0;
 	int i, j;
-	for (i = i_deb; i <= current->i_fin; j++){
-		for(j=j_deb; j<=current->j_fin; j++){
+
+	for (i = current->i_deb; i <= current->i_fin; i++){
+		for(j=current->j_deb; j<=current->j_fin; j++){
 			if(ic==i && jc == j){
 				appartien=1;
 			}
 		}
 	}
+	
 	return appartien;
 }
 
 void navireC(grille gc, pMaillon m){
 	int i, j;
-	for (i = i_deb; i <= current->i_fin; j++){
-		for(j=j_deb; j<=current->j_fin; j++){
+	for (i = m->i_deb; i <= m->i_fin; i++){
+		for(j=m->j_deb; j<=m->j_fin; j++){
 			gc[i][j] = 'C';
 		}
 	}
@@ -151,7 +156,7 @@ int navire_coule(maillon* m, int ic, int jc, grille gc){
 	pMaillon current = m;
 	
 	while(current != NULL && !appartien(current, ic, jc)){
-		current = current->nextMaillon;
+		current = current->nextMaillon;	
 	}
 
 	if(current !=NULL){
@@ -162,9 +167,11 @@ int navire_coule(maillon* m, int ic, int jc, grille gc){
 				}
 			}
 		}
+
 		if(counte+1 >= tailleNavire(current)){
 			coule=1;
-
+			//printf("%d\n", current->i_fin);
+			printf("%d\n", current->j_fin);
 			current->coule = 1;
 			navireC(gc, current);
 		}
@@ -188,22 +195,25 @@ int jeu_fini(liste_navire l){
 }
 
 int navire_touche(grille g, int i, int j){
-	return g[i][j] == 'N';
+	return (g[i][j] == 'N');
 }
 
 void joue(grille g, grille gc, int n, liste_navire l, int i, int j){
-
-	if(navire_coule(l->first, i, j, gc)){
-		printf("coule\n");
-	}
-	else if(navire_touche(g, i, j)){
-		gc[i][j] = 'T';
-		printf("touche\n");
+	if(i>=n && j>=n){
+		printf("rejouer\n");
 	}
 	else{
-		gc[i][j] = 'X';
-		printf("rate\n");
-
+		if(navire_coule(l.first, i, j, gc)){
+			printf("coule\n");
+		}
+		else if(navire_touche(g, i, j)){
+			gc[i][j] = 'T';
+			printf("touche\n");
+		}
+		else{
+			gc[i][j] = 'X';
+			printf("rate\n");
+		}
 	}
 }
 

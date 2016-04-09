@@ -23,20 +23,19 @@ int main(int argc, char const *argv[])
 	g[0][1] = 'N';
 	g[0][2] = 'N';
 
-	printGrille(g, TAILLE);
+	//printGrille(g, TAILLE);
 
 	l = cree_liste_navires(g, TAILLE);
 
 	current = l.first;
-	if(current == NULL){printf("hey\n");}
+	if(current == NULL){printf("erreur de liste");}
 	while(current != NULL){
-		printf("hey\n");
 		current->coule = 1;
 		current = current->nextMaillon;
 	}
 
-	printGrille(g, TAILLE);
-	printf("%d\n", jeu_fini(l));
+	//printGrille(g, TAILLE);
+	//printf("%d\n", jeu_fini(l));
 
 
 /**************************************************************************/
@@ -48,12 +47,18 @@ int main(int argc, char const *argv[])
 	gc[5][5] = 'X';
 	gc[6][5] = 'X';
 
-	gc[0][0] = 'N';
-	gc[0][1] = 'N';
+	//gc[0][0] = 'N';
+	//gc[0][1] = 'N';
 	gc[0][2] = 'T';
 
-	printf("%d\n", navire_coule(l.first, 0, 1, gc));
-
+	//printf("%d\n", navire_coule(l.first, 0, 1, gc));
+	printGrille(gc, TAILLE);
+	joue(g, gc, TAILLE, l, 0, 0);
+	printGrille(gc, TAILLE);
+	joue(g, gc, TAILLE, l, 4, 1);
+	printGrille(gc, TAILLE);
+	joue(g, gc, TAILLE, l, 0, 1);
+	printGrille(gc, TAILLE);
 
 	return 0;
 }
