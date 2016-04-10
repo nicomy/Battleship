@@ -1,6 +1,13 @@
 #include "jeu.h"
 
-//fonction qui ajoute un bateau dans la liste.
+
+/**fonction qui ajoute un bateau dans la liste
+*param:	b: list de bateau ou on ajoute le bateau 
+*		nom_bat: nom du bateau
+*		nbr: nombre de ce bateau 
+*		nbcase :: nombre de case de ce type de bateau
+*return: la liste avec un type de bateau ajouté
+*/
 pbateau addbateau(pbateau b,char* nom_bat,int nbr,int nbcase){
 	pbateau nbateau = malloc(sizeof(listebateau)); 
 	
@@ -18,6 +25,7 @@ pbateau addbateau(pbateau b,char* nom_bat,int nbr,int nbcase){
 }
 
 //crée une liste_bateu vide
+//return : un eliste de bateau vide
 pbateau creatList(){
 	pbateau l = malloc(sizeof(listebateau));
 	if(l == NULL){
@@ -29,6 +37,7 @@ pbateau creatList(){
 }
 
 //permet de remplir la liste avec tous les bateaux , leurs nombres et leurs taille.
+//return la liste complete des bateaux.
 pbateau initbat (){
 	pbateau l ; 
 	l = creatList() ;
@@ -44,7 +53,10 @@ int lbvide(pbateau l ){
 	return (l == NULL) ;
 }
 
-//renvoit 0 s'il n'y plus de bateau à enlever, 1 sinon. 
+/**fonction qui enlève un bateau dans la liste
+*param:	: list de bateau ou l'on veut enlever un 
+*return: renvoi la liste avec un bateau en moins
+*/
 pbateau enlever(pbateau l){
 	pbateau tmp = l ;
 	int nbr ;
