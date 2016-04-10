@@ -1,14 +1,15 @@
 #include "codageNavires.h"
 
-void addNavire(pListe_navire list, pMaillon n){
-	if (list->first == NULL){
-		list->first = n;
-		list->last = n;
+liste_navire addNavire(liste_navire list, pMaillon n){
+	if (list.first == NULL){
+		list.first = n;
+		list.last = n;
 	}
 	else{
-		(list)->last->nextMaillon = n;
-		(list)->last = n;
+		list.last->nextMaillon = n;
+		list.last = n;
 	}
+	return list;
 }
 
 pMaillon creatNavire(int i_first, int j_first, int i_end, int j_end){
@@ -28,14 +29,10 @@ pMaillon creatNavire(int i_first, int j_first, int i_end, int j_end){
 	return newNavire;
 }
 
-pListe_navire liste_vide(){
-	pListe_navire l = malloc(sizeof(liste_navire));
-	if(l == NULL){
-		printf("erreur d'alocation\n");
-		exit(0);
-	}
-	l->first = NULL;
-	l->last = NULL;
+liste_navire liste_vide(){
+	liste_navire l; 
+	l.first = NULL;
+	l.last = NULL;
 	return l;
 }
 
@@ -97,7 +94,7 @@ char** cree_copie(grille g, int n){
 liste_navire cree_liste_navires(grille g, int n){
 
 	int i, j;
-	pListe_navire ln = liste_vide();
+	liste_navire ln = liste_vide();
 	pMaillon m;
 	char** copie = cree_copie(g, n);
 	for(i=0; i<n; i++){
@@ -105,13 +102,13 @@ liste_navire cree_liste_navires(grille g, int n){
 			if(copie[i][j] == 'N'){
 				m = find_navire(copie, n, i, j);
 				//printGrille(g, n);
-				addNavire(ln, m);
+				ln = addNavire(ln, m);
 			}
 
 		}
 	}
 	free(copie);
-	return *ln;
+	return ln;
 }
 
 
@@ -145,7 +142,7 @@ int appartien(pMaillon current, int ic, int jc){
 void navireC(grille gc, pMaillon m){
 	int i, j;
 	for (i = get_i_deb(m); i <= get_i_fin(m); i++){
-		for(j=get_j_deb(m); j<=get_i_fin(m); j++){
+		for(j=get_j_deb(m); j<=get_j_fin(m); j++){
 			gc[i][j] = 'C';
 		}
 	}
@@ -154,26 +151,25 @@ void navireC(grille gc, pMaillon m){
 int navire_coule(maillon* m, int ic, int jc, grille gc){
 	int i, j, counte=0, coule=0;
 	pMaillon current = m;
-	
-	while(current != NULL && !appartien(current, ic, jc)){
-		current = current->nextMaillon;	
-	}
-
-	if(current !=NULL){
-		for(i=get_i_deb(current); i<=get_i_fin(current); i++){
-			for (j=get_j_deb(current); j<=get_j_fin(current); j++){
-				if(gc[i][j] == 'T'){
-					counte++;
-				}
-			}
+	if(gc[ic][jc] != 'T'){
+		while(current != NULL && !appartien(current, ic, jc)){
+			current = current->nextMaillon;	
 		}
 
-		if(counte+1 >= tailleNavire(current)){
-			coule=1;
-			//printf("%d\n", current->i_fin);
-			//printf("%d\n", current->j_fin);
-			current->coule = 1;
-			navireC(gc, current);
+		if(current !=NULL){
+			for(i=get_i_deb(current); i<=get_i_fin(current); i++){
+				for (j=get_j_deb(current); j<=get_j_fin(current); j++){
+					if(gc[i][j] == 'T'){
+						counte++;
+					}
+				}
+			}
+
+			if(counte+1 >= tailleNavire(current)){
+				coule=1;
+				current->coule = 1;
+				navireC(gc, current);
+			}
 		}
 	}
 	return coule;

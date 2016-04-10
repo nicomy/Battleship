@@ -14,11 +14,11 @@ typedef struct $list
 
 typedef char** grille;
 
-void addNavire(pListe_navire list, pMaillon n);
+liste_navire addNavire(liste_navire list, pMaillon n);
 
 pMaillon creatNavire(int i_first, int j_first, int i_end, int j_end);
 
-pListe_navire liste_vide();
+liste_navire liste_vide();
 
 pMaillon find_navire(grille g, int n, int i, int j);
 
