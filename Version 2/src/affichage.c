@@ -3,16 +3,12 @@
 #include <stdlib.h> **/
 #include "affichage.h"
 
-/**role de la fct joue : si 'B' en (i,j) -> raté 
-sinon  on a toucher en (i,j)
--> appel de un_navire_coulé pour savoir si on a coulé
-
-**/
-
-
 typedef char** grille ; 
 
-//permet d'initialiser a grille en y plaçant le caractère c.
+/*permet d'initialiser a grille en y plaçant le caractère c.
+*param:	g: grille des ou les bateaux sont déjà présent.
+*		n: taille de la grille
+*/
 grille init_grille( int N, char c ){
 	int i, j ; 
 	grille g = malloc(N*sizeof(char*)) ;
@@ -29,7 +25,10 @@ grille init_grille( int N, char c ){
 	return g;
 }
 
-
+/**affiche la grille des bateaux  
+*param:	g: grille des ou les bateaux sont déjà présent.
+*		n: taille de la grille
+*/
 void afficher_jeu(grille g , int N ) {
 	int i, j ; 
 
@@ -53,6 +52,10 @@ void afficher_jeu(grille g , int N ) {
 	}
 	printf("\n");
 }
+/**affiche la grille des état des tir ie ( X, T ou C ) 
+*param:	g: grille des ou les bateaux sont déjà présent.
+*		n: taille de la grille
+*/
 
 void affiche_etat_coules(grille g, int N ){
 	int i, j ; 
@@ -90,7 +93,11 @@ void free_grille(grille g, int N){
 
 
 
-//revoit la taille du bateau entré par l'utilisateur.
+/*calcul la taille du bateau entré par l'utilisateur. 
+*param:	debut: tableau de taille 2 pour avoir la colonne et la ligne du début du bateau.
+*		fin: idem que début pour les coordonées de la fin du bateau
+*return: revoit la taille du bateau entré par l'utilisateur
+*/
 int taille( char debut[], char fin[]){
 	int i,j, compteur = 0; 
 
@@ -105,7 +112,13 @@ int taille( char debut[], char fin[]){
 	return (compteur) ;
 }
 
-//permet de convertir le buf en cordonné utilisable 
+
+/**permet de convertir le buf en cordonné utilisable
+*param:	buf: cahine de caractère donnée par l'utiliateur.
+*		debut: tableau de taille 2 pour avoir la colonne et la ligne du début du bateau.
+*		fin: idem que début pour les coordonées de la fin du bateau
+*/
+
 void recup_donnee(char* buf, char* debut, char* fin ){
 	int i=1, lg = strlen(buf);
 	int tmp; 
@@ -143,7 +156,14 @@ void recup_donnee(char* buf, char* debut, char* fin ){
 
 }
 
-//fonction qui va tester si les coordonnées sont valide et renvoi 1 si le bateau peut être placer 0 sinon.
+/**fonction qui va tester si les coordonnées sont valide 
+*param:	g: grille des ou les bateaux sont déjà présent.
+*		n: taille de la grille
+*		debut: tableau de taille 2 pour avoir la colonne et la ligne du début du bateau.
+*		fin: idem que début pour les coordonées de la fin du bateau
+*		l : liste des bateaux 
+*return: renvoi 1 si le bateau peut être placer 0 sinon.
+*/
 int mettable(grille g, int n, char debut[], char fin[], pbateau l ){
 	int i, j ,tmp; 
 	int res = 1 ;
@@ -196,7 +216,10 @@ int mettable(grille g, int n, char debut[], char fin[], pbateau l ){
 	return res; 
 }
 
-//remplit la grille depuis un ficher.
+/**remplir grille depuis un fichier
+*param:	g: grille des ou les bateaux sont déjà présent.
+*		n: taille de la grille
+*/
 void remplir_gille (grille g, int n ){
 	char buf[10] = "" ;
 	char debut[2] = "" ;
@@ -243,7 +266,10 @@ void remplir_gille (grille g, int n ){
 }
 
 
-//identique à remplir grille mais pour l'utilisateur. 
+/**identique à remplir grille mais pour l'utilisateur. 
+*param:	g: grille des ou les bateaux sont déjà présent.
+*		n: taille de la grille
+*/
 void usr_remplir_grille(grille g, int n ){
 	char buf[10] = "" ;
 	char debut[2] = "" ;
