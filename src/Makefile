@@ -1,7 +1,7 @@
 #mettre le Makfile dans le src
 #faire le ex dans un autre Exec = 
-
-SRCS = affichage.c test_affichage.c 
+#affichage.c jeu.c main.c test_codageNavire.c
+SRCS = codageNavires.c affichage.c jeu.c main.c
 OBJS = $(SRCS:.c=.o)
 CFLAGS= -I ../include -Wall 
 
