@@ -1,6 +1,4 @@
-/**#include <stdio.h>
-#include <string.h>
-#include <stdlib.h> **/
+//Antoine Blanc et Nicolas Homberg
 #include "affichage.h"
 
 typedef char** grille ; 

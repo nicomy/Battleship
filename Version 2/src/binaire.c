@@ -1,3 +1,4 @@
+//Antoine Blanc et Nicolas Homberg
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -22,6 +23,7 @@ uint32_t set_field(uint32_t a, int faible, int fort , int v){
 	masque = masque >> (bordg + faible-1) ;// enlève tous les 1 à droite de faible 
 	masque = masque <<(faible -1); // replace le masque au debuté du bit faible
 	v = v << (faible -1);  // on décale pareillement v pour être alligné avec les bon bit
+	masque = ~masque ; //on met à 0 les bit qui nous interresse. 
 	a = a & masque ; //on met à 0 tout les bits dans l'intervalle failbe-fort 
 	a = a + v ; // on place les bit de v.
 	//printf("%d\n", a);

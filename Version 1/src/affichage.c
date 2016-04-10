@@ -1,6 +1,5 @@
-/**#include <stdio.h>
-#include <string.h>
-#include <stdlib.h> **/
+//Antoine Blanc et Nicolas Homberg
+
 #include "affichage.h"
 
 /**role de la fct joue : si 'B' en (i,j) -> raté 

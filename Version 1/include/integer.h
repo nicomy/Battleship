@@ -1,3 +1,4 @@
+//Antoine Blanc et Nicolas Homberg
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,3 +1,4 @@
+//Antoine Blanc et Nicolas Homberg
 #include "jeu.h"
 
 /**fonction qui ajoute un bateau dans la liste

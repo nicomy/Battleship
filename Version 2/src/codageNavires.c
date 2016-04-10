@@ -1,3 +1,4 @@
+//Antoine Blanc et Nicolas Homberg
 #include "codageNavires.h"
 
 /**addNavire: ajout un  navire en fin de liste
