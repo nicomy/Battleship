@@ -73,6 +73,7 @@ int main(int argc, char const *argv[])
 	//libération des grilles
 	free_grille(g,N);
 	free_grille(gc,N);
+	liberer_maillon(l);
 
 	return 0;
 }
