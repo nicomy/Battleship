@@ -1,5 +1,10 @@
 #include "codageNavires.h"
 
+/**addNavire: ajout un  navire en fin de liste
+*param:	list: structur de liste_navire
+*		n: pointeur sur le maillon à a jouter
+*return: retourne la liste de navire (structure liste_navire)
+*/
 liste_navire addNavire(liste_navire list, pMaillon n){
 	if (list.first == NULL){
 		list.first = n;
@@ -12,6 +17,13 @@ liste_navire addNavire(liste_navire list, pMaillon n){
 	return list;
 }
 
+/**creatNavire: créer et initialise un navire
+*param:	i_first: coordonée en i du début du bateau
+*		j_first: coordonée en j du début du bateau
+*		i_end: coordonée en i de la fin du bateau
+*		j_end: coordonée en j de la fin du bateau
+*return: retourne un point sur le maillon du navire créé
+*/
 pMaillon creatNavire(int i_first, int j_first, int i_end, int j_end){
 	pMaillon newNavire = malloc(sizeof(maillon));
 	if(newNavire == NULL){
@@ -29,6 +41,10 @@ pMaillon creatNavire(int i_first, int j_first, int i_end, int j_end){
 	return newNavire;
 }
 
+
+/**cree une liste de navire vide (structure liste_navire)
+*return: une liste vide
+*/
 liste_navire liste_vide(){
 	liste_navire l; 
 	l.first = NULL;
@@ -36,6 +52,13 @@ liste_navire liste_vide(){
 	return l;
 }
 
+/**trouve les beateaux dans la grille à partir du début du bateau. Et crée un maillon
+*param:	g: grille de navire à trouver
+*		n: taille de la grille
+*		i: coordonnée en i du début du bateau
+*		j: coordonnée en j du début du bateau
+*return: retourne un pointeur sur le maillon crée pour le bateau trouvé
+*/
 pMaillon find_navire(grille g, int n, int i, int j){
 	int i_first, j_first;
 	i_first = i;
@@ -60,6 +83,9 @@ pMaillon find_navire(grille g, int n, int i, int j){
 	
 }
 
+/**printGrille affiche une grille (test)
+*
+*/
 void printGrille(grille g, int taille){
 	int i, j;
 	for ( i = 0; i < taille; ++i)
@@ -72,6 +98,11 @@ void printGrille(grille g, int taille){
 	}
 }
 
+/**créé une copie d'un tableau
+*param: g: grille a copier
+*		n: taille de la grille a copier
+return: retourne le tableau copié
+*/
 char** cree_copie(grille g, int n){
 	int i, j;
 	grille copie = malloc(sizeof(char*)*n);
@@ -91,6 +122,12 @@ char** cree_copie(grille g, int n){
 
 }
 
+
+/**créé une liste de navire à partir de la grille J1
+*param: g: grille de navire
+*		n: taille de la grille
+return: retourne la liste de navire
+*/
 liste_navire cree_liste_navires(grille g, int n){
 
 	int i, j;
@@ -111,7 +148,10 @@ liste_navire cree_liste_navires(grille g, int n){
 	return ln;
 }
 
-
+/**calcul la taille d'un navire
+*param: m: maillon du navire pour calculer ça taille
+*return: retourne la taille du navire
+*/
 int tailleNavire(pMaillon m){
 	int res=0;
 	if(get_i_deb(m) == get_i_fin(m)){
@@ -124,6 +164,12 @@ int tailleNavire(pMaillon m){
 	return res;
 }
 
+/**appartien: regarde si les coordonée apartienne à un bateau
+*param:	current:maillon du beau à vérifier
+*		ic: coordonée en i à vérifier
+*		jc: coordonée en j à vérifier
+*return: retourne 1 si les coordonée appartienne au bateau, 0 sinon 
+*/
 int appartien(pMaillon current, int ic, int jc){
 	int appartien = 0;
 	int i, j;
@@ -139,6 +185,10 @@ int appartien(pMaillon current, int ic, int jc){
 	return appartien;
 }
 
+/**navireC: Met à jour la grille de J2 si le bateau est coulé
+*param:	gc: grile de J2 à mettre a jour
+		m:pointeur de maillon sur le bateau coulé
+*/
 void navireC(grille gc, pMaillon m){
 	int i, j;
 	for (i = get_i_deb(m); i <= get_i_fin(m); i++){
@@ -148,6 +198,13 @@ void navireC(grille gc, pMaillon m){
 	}
 }
 
+/**vérifie si le navire est coulé aprés une attaque
+*param: m:pointeur sur le 1er maillon de la liste
+*		ic: attaque en i du joueur J2
+*		jc: attaque en j du joueur J2
+*		gc: grille du jouer J2
+*return: retourne 1 si un anvire est coulée, 0 sinon
+*/
 int navire_coule(maillon* m, int ic, int jc, grille gc){
 	int i, j, counte=0, coule=0;
 	pMaillon current = m;
@@ -175,7 +232,10 @@ int navire_coule(maillon* m, int ic, int jc, grille gc){
 	return coule;
 }
 
-
+/**jeu_fini: permet de savoir lorsque tout les navire sont coulé
+*param:	l: liste de navire
+*return: retourne 1 si tout les navires sont coulé, 0 sinon
+*/
 int jeu_fini(liste_navire l){
 	int res=1;
 
@@ -190,10 +250,25 @@ int jeu_fini(liste_navire l){
 	return res;
 }
 
-int navire_touche(grille g, int i, int j){
+/**navire_touche: vérifie si un navire est touché
+*param: g: grille de J1
+*		i: coordonée de l'ataque en i
+*		j: coordonée de l'ataque en j
+*return: retourne 1 si le navire est touché, 0 sinon
+*/
+int navire_touche(grille g, int i, int j, int n){
+	if(i>n && j>n){ return 0;}
 	return (g[i][j] == 'N');
 }
 
+/**joue: permet à J2 de jouer une attaque
+*param: g: grille de J1
+*		gc: grille de J2
+*		n:taille des grilles
+*		l: liste de navire
+*		i: attaque de J2 en i
+*		j: attaque de J2 en j
+*/
 void joue(grille g, grille gc, int n, liste_navire l, int i, int j){
 	if(i>=n && j>=n){
 		printf("rejouer\n");
@@ -202,7 +277,7 @@ void joue(grille g, grille gc, int n, liste_navire l, int i, int j){
 		if(navire_coule(l.first, i, j, gc)){
 			printf("coule\n");
 		}
-		else if(navire_touche(g, i, j)){
+		else if(navire_touche(g, i, j, n)){
 			gc[i][j] = 'T';
 			printf("touche\n");
 		}
