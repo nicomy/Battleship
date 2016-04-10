@@ -213,3 +213,17 @@ void joue(grille g, grille gc, int n, liste_navire l, int i, int j){
 	}
 }
 
+/**liberer_maillon: liber la liste liste de maillon
+*param: l: liste de naivre;
+*/
+void liberer_maillon(liste_navire l){
+	pMaillon pred = l.first;
+	pMaillon current = l.first;
+
+	while(current != NULL){
+		current = current->nextMaillon;
+		free(pred);
+		pred = current;
+	}
+
+}
