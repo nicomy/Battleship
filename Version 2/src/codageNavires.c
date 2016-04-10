@@ -18,11 +18,11 @@ pMaillon creatNavire(int i_first, int j_first, int i_end, int j_end){
 		exit(0);
 	}
 
-	newNavire->i_deb = i_first;
-	newNavire->j_deb = j_first;
-	newNavire->i_fin = i_end;
-	newNavire->j_fin = j_end;
-	newNavire->coule = 0;
+	set_i_deb(newNavire, i_first);
+	set_j_deb(newNavire, j_first);
+	set_i_fin(newNavire, i_end);
+	set_j_fin(newNavire, j_end);
+	set_coule(newNavire, 0);
 	newNavire->nextMaillon = NULL;
 
 	return newNavire;
@@ -117,11 +117,11 @@ liste_navire cree_liste_navires(grille g, int n){
 
 int tailleNavire(pMaillon m){
 	int res=0;
-	if(m->i_deb == m->i_fin){
-		res = m->j_fin - m->j_deb+1;
+	if(get_i_deb(m) == get_i_fin(m)){
+		res = get_j_fin(m) - get_j_deb(m)+1;
 	}
 	else{
-		res = m->i_fin - m->i_deb+1;
+		res = get_i_fin(m) - get_i_deb(m)+1;
 	}
 
 	return res;
@@ -131,8 +131,8 @@ int appartien(pMaillon current, int ic, int jc){
 	int appartien = 0;
 	int i, j;
 
-	for (i = current->i_deb; i <= current->i_fin; i++){
-		for(j=current->j_deb; j<=current->j_fin; j++){
+	for (i = get_i_deb(current); i <= get_i_fin(current); i++){
+		for(j=get_j_deb(current); j<=get_j_fin(current); j++){
 			if(ic==i && jc == j){
 				appartien=1;
 			}
@@ -144,8 +144,8 @@ int appartien(pMaillon current, int ic, int jc){
 
 void navireC(grille gc, pMaillon m){
 	int i, j;
-	for (i = m->i_deb; i <= m->i_fin; i++){
-		for(j=m->j_deb; j<=m->j_fin; j++){
+	for (i = get_i_deb(m); i <= get_i_fin(m); i++){
+		for(j=get_j_deb(m); j<=get_i_fin(m); j++){
 			gc[i][j] = 'C';
 		}
 	}
@@ -160,8 +160,8 @@ int navire_coule(maillon* m, int ic, int jc, grille gc){
 	}
 
 	if(current !=NULL){
-		for(i=current->i_deb; i<=current->i_fin; i++){
-			for (j=current->j_deb; j<=current->j_fin; j++){
+		for(i=get_i_deb(current); i<=get_i_fin(current); i++){
+			for (j=get_j_deb(current); j<=get_j_fin(current); j++){
 				if(gc[i][j] == 'T'){
 					counte++;
 				}
@@ -171,7 +171,7 @@ int navire_coule(maillon* m, int ic, int jc, grille gc){
 		if(counte+1 >= tailleNavire(current)){
 			coule=1;
 			//printf("%d\n", current->i_fin);
-			printf("%d\n", current->j_fin);
+			//printf("%d\n", current->j_fin);
 			current->coule = 1;
 			navireC(gc, current);
 		}
@@ -185,7 +185,7 @@ int jeu_fini(liste_navire l){
 
 	pMaillon current = l.first;
 	while(current != NULL){
-		if(current->coule == 0){
+		if(get_coule(current) == 0){
 			res = 0;
 		}
 		current = current->nextMaillon;

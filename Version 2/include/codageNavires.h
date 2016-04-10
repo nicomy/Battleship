@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "binaire.h"
 
-typedef struct $maillon* pMaillon;
+
 
 typedef struct $list
 {
@@ -9,15 +10,7 @@ typedef struct $list
 	pMaillon last;
 }liste_navire, *pListe_navire;
 
-typedef struct $maillon
-{
-	int i_deb;
-	int j_deb;
-	int i_fin;
-	int j_fin;
-	int coule;
-	pMaillon nextMaillon;
-}maillon, *pMaillon;
+
 
 typedef char** grille;
 
@@ -38,3 +31,4 @@ int jeu_fini(liste_navire l);
 int navire_coule(maillon* m, int ic, int jc, grille gc);
 
 void joue(grille g, grille gc, int n, liste_navire l, int i, int j);
+
