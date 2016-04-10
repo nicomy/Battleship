@@ -25,7 +25,7 @@ uint32_t set_field(uint32_t a, int faible, int fort , int v){
 	v = v << (faible -1); 
 	a = a & masque ; 
 	a = a + v ; 
-	printf("%d\n", a);
+	//printf("%d\n", a);
 	return a ; 
 }
 

@@ -149,12 +149,16 @@ int mettable(grille g, int n, char debut[], char fin[], pbateau l ){
 	int res = 1 ;
 
 	//test si les coordonées sortent du tableaux (peut aussi être du à une entrée incorrecte)
-	if (debut[0]<0 || debut[1]<0 || fin[0]>(n-1) || fin[1] > n-1)
+	if (!(debut[0]== fin[0] || debut[1] == fin[1]))
+	{
+		printf("votre bateau doit être en ligne!\n");
+		res = 0 ; 
+	}
+	else if (debut[0]<0 || debut[1]<0 || fin[0]>(n-1) || fin[1] > n-1)
 	{
 		res = 0 ;
 		printf("\n\nVos coordonnées sortent du tableau ou son invalide pensez à bien mettre '-' pour séparer le début et la fin du bateau\n\n");
 	}
-
  	else{
  		// teste si la taille rentré est idetique avec celle attendu pour ce type de bateau. 
  		tmp = taille(debut,fin) ;
@@ -271,7 +275,9 @@ void usr_remplir_grille(grille g, int n ){
 		   			}
 			   	}
 			   	//décrémente le nombre bateau restant.
-			   	l=enlever(l);
+			   	if(l!=NULL){
+			   		l=enlever(l);
+			   	}
 
 	   		}
 	   	}

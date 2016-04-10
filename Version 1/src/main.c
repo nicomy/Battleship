@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
 	remplir_gille(g,N);
 	l = cree_liste_navires(g, N);
 
-	printf("au joueur 2 d'essayer de couler les navires.\n");
+	printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nau joueur 2 d'essayer de couler les navires.\n");
 	while(!jeu_fini(l)){
 		printf("\nVoici la grille\n");
 		affiche_etat_coules(gc, N );
