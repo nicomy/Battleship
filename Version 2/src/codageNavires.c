@@ -167,7 +167,7 @@ int navire_coule(maillon* m, int ic, int jc, grille gc){
 
 			if(counte+1 >= tailleNavire(current)){
 				coule=1;
-				current->coule = 1;
+				set_coule(current, 1); //current->coule = 1;
 				navireC(gc, current);
 			}
 		}

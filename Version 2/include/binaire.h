@@ -1,14 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef struct $maillon* pMaillon;
 typedef struct $maillon
 {
-	int i_deb;
-	int j_deb;
-	int i_fin;
-	int j_fin;
-	int coule;
+	uint32_t c;
 	pMaillon nextMaillon;
 }maillon;
 
@@ -25,7 +22,7 @@ void set_j_fin(pMaillon m, int j);
 void set_coule(pMaillon m, int c);
 int get_coule(pMaillon m);
 
-/*
+
 int get_field(uint32_t a, int faible, int fort);
 
-int set_field(uint32_t a, int faible, int fort , int v);*/
+uint32_t set_field(uint32_t a, int faible, int fort , int v);
